@@ -3,52 +3,31 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
+            <a class="nav-link {{ request()->segment(2) == null ? '' : 'collapsed' }}" href="{{ route('admin') }}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#companies-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Companies</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="companies-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('companies.create') }}">
-                        <i class="bi bi-circle"></i><span>Create</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('companies.index') }}">
-                        <i class="bi bi-circle"></i><span>List</span>
-                    </a>
-                </li>
-
-            </ul>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#employees-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Employees</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="employees-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('employees.create') }}">
-                        <i class="bi bi-circle"></i><span>Create</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('employees.index') }}">
-                        <i class="bi bi-circle"></i><span>List</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-
+        @foreach(\App\Enums\ResourcesEnum::NAMES as $resource)
+            <li class="nav-item">
+                <a class="nav-link {{ request()->segment(2) == $resource ? '' : 'collapsed' }}" data-bs-target="#{{$resource}}-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>{{ ucfirst($resource) }}</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="{{$resource}}-nav" class="nav-content {{ request()->segment(2) == $resource ? 'show' : 'collapse' }}" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a class="{{ request()->segment(2) == $resource && request()->segment(3) == 'create' ? 'active' : '' }}" href="{{ route($resource.'.create') }}">
+                            <i class="bi bi-circle"></i><span>Create</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ request()->segment(2) == $resource && !request()->segment(3)? 'active' : '' }}" href="{{ route($resource.'.index') }}">
+                            <i class="bi bi-circle"></i><span>List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endforeach
     </ul>
 
 </aside>

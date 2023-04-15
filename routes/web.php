@@ -18,7 +18,8 @@ Route::prefix('admin')->group(function () {
 
     Route::group(['middleware' => 'auth'], function () {
         Route::get('', [DashboardController::class, 'index'])->name('admin');
-        Route::resource('companies', CompaniesController::class);
-        Route::resource('employees', EmployeesController::class);
+        foreach (\App\Enums\ResourcesEnum::all() as $name => $class) {
+            Route::resource($name, $class);
+        }
     });
 });
