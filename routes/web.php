@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EmployeesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,5 +18,7 @@ Route::prefix('admin')->group(function () {
 
     Route::group(['middleware' => 'auth'], function () {
         Route::get('', [DashboardController::class, 'index'])->name('admin');
+        Route::resource('companies', CompaniesController::class);
+        Route::resource('employees', EmployeesController::class);
     });
 });

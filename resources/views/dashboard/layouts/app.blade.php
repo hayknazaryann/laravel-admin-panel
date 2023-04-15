@@ -39,7 +39,9 @@
 <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 <!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
+<script src="{{ asset('dashboard/js/plugins/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('dashboard/js/plugins/sweetalert2.all.js') }}"></script>
+<script src="{{ asset('dashboard/js/main.js') }}"></script>
 
 </body>
 

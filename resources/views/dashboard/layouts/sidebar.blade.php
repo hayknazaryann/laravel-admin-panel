@@ -15,13 +15,13 @@
             </a>
             <ul id="companies-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="">
+                    <a href="{{ route('companies.create') }}">
                         <i class="bi bi-circle"></i><span>Create</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('companies.index') }}">
                         <i class="bi bi-circle"></i><span>List</span>
                     </a>
                 </li>
@@ -35,13 +35,13 @@
             </a>
             <ul id="employees-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="">
+                    <a href="{{ route('employees.create') }}">
                         <i class="bi bi-circle"></i><span>Create</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('employees.index') }}">
                         <i class="bi bi-circle"></i><span>List</span>
                     </a>
                 </li>
