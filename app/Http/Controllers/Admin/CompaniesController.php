@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Services\Company\CompanyService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use PHPUnit\Exception;
 
@@ -61,26 +62,14 @@ class CompaniesController extends Controller
             $this->companyService->create($request->validated());
             return redirect()->route('companies.index')->with('success', 'Company created successfully');
         } catch (Exception $exception) {
+            Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Company $company)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
-     *
      * @param  \App\Models\Company  $company
-     * @return View
      */
     public function edit(Company $company)
     {
@@ -102,6 +91,7 @@ class CompaniesController extends Controller
             $this->companyService->update($company, $request->validated());
             return redirect()->route('companies.index')->with('success', 'Company updated successfully');
         } catch (Exception $exception) {
+            Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }
     }
@@ -117,6 +107,7 @@ class CompaniesController extends Controller
             $this->companyService->delete($company);
             return redirect()->route('companies.index')->with('success', 'Company deleted successfully');
         } catch (Exception $exception) {
+            Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }
     }

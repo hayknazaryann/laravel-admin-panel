@@ -9,6 +9,7 @@
 
                         <form class="row g-3" method="post" action="{{route('companies.update', $company->id)}}" enctype="multipart/form-data">
                             @csrf
+                            {{ method_field('PUT') }}
 
                             <div class="col-md-12">
                                 <div class="col-md-8 m-auto">
@@ -55,7 +56,7 @@
 
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-success" id="save">{{__('Create')}}</button>
+                                        <button type="submit" class="btn btn-success" id="save">{{__('Update')}}</button>
                                         <button type="reset" class="btn btn-secondary">{{__('Reset')}}</button>
                                     </div>
                                 </div>

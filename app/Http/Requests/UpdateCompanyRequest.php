@@ -24,9 +24,9 @@ class UpdateCompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:companies,name',
-            'email' => 'required|email|unique:companies,email',
-            'website' => 'required|string|unique:companies,website',
+            'name' => 'required|string|unique:companies,name,' . $this->company->id,
+            'email' => 'required|email|unique:companies,email,' . $this->company->id,
+            'website' => 'required|string|unique:companies,website,' . $this->company->id,
             'logo' => 'nullable|mimes:jpg,jpeg,png,webp',
         ];
     }

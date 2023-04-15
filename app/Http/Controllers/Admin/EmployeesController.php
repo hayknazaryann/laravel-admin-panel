@@ -8,6 +8,7 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Services\Company\CompanyService;
 use App\Services\Employee\EmployeeService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class EmployeesController extends Controller
@@ -68,30 +69,24 @@ class EmployeesController extends Controller
             $this->employeeService->create($request->validated());
             return redirect()->route('employees.index')->with('success', 'Employee created successfully');
         } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Employee $employee)
-    {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit(Employee $employee)
     {
-        //
+        if (!$employee) {
+            return redirect()->route('employees.index');
+        }
+        $companies = $this->companyService->getAll();
+        return view('dashboard.employees.edit', compact('employee', 'companies'));
     }
 
     /**
@@ -99,21 +94,31 @@ class EmployeesController extends Controller
      *
      * @param  \App\Http\Requests\UpdateEmployeeRequest  $request
      * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        //
+        try {
+            $this->employeeService->update($employee, $request->validated());
+            return redirect()->route('employees.index')->with('success', 'Employee updated successfully');
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Employee $employee)
     {
-        //
+        try {
+            $this->employeeService->delete($employee);
+            return redirect()->route('employees.index')->with('success', 'Employee deleted successfully');
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 }

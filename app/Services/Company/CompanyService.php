@@ -34,6 +34,7 @@ class CompanyService
         CompanyInterface $companyRepository
     ) {
         $this->companyRepository = $companyRepository;
+        $this->fileService = new FileService();
     }
 
     /**
@@ -66,17 +67,7 @@ class CompanyService
         DB::beginTransaction();
         $company = $this->companyRepository->create($data);
         if (isset($data['logo']) && $data['logo']) {
-            $upload_dir = '/uploads/companies/'.$company->id.'/';
-            $uploadedFile = $data['logo'];
-            $fileName = $uploadedFile->hashName();
-            $pieces = explode(".", $fileName);
-            $fileName = $pieces[0] . '.webp';
-            $image = Image::make($uploadedFile);
-            Storage::put('public/' . $upload_dir . 'original/' . $fileName, (string) $image->encode('webp'));
-            $image->resize(100,100, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            Storage::put('public/' . $upload_dir . '100x100/' . $fileName, (string) $image->encode('webp'));
+            $fileName = $this->fileService->uploadLogo($company,$data['logo']);
             $this->companyRepository->update($company,['logo' => $fileName]);
         }
         DB::commit();
@@ -94,17 +85,7 @@ class CompanyService
         DB::beginTransaction();
         $this->companyRepository->update($company, $data);
         if (isset($data['logo']) && $data['logo']) {
-            $upload_dir = '/uploads/companies/'.$company->id.'/';
-            $uploadedFile = $data['logo'];
-            $fileName = $uploadedFile->hashName();
-            $pieces = explode(".", $fileName);
-            $fileName = $pieces[0] . '.webp';
-            $image = Image::make($uploadedFile);
-            Storage::put('public/' . $upload_dir . 'original/' . $fileName, (string) $image);
-            $image->resize(100,100, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            Storage::put('public/' . $upload_dir . '100x100/' . $fileName, (string) $image);
+            $fileName = $this->fileService->uploadLogo($company, $data['logo']);
             $this->companyRepository->update($company,['logo' => $fileName]);
         }
         DB::commit();
