@@ -61,7 +61,7 @@ class EmployeesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreEmployeeRequest  $request
+     * @param  StoreEmployeeRequest  $request
      */
     public function store(StoreEmployeeRequest $request)
     {
@@ -77,7 +77,7 @@ class EmployeesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param  Employee  $employee
      * @return View
      */
     public function edit(Employee $employee)
@@ -92,8 +92,8 @@ class EmployeesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateEmployeeRequest  $request
-     * @param  \App\Models\Employee  $employee
+     * @param  UpdateEmployeeRequest  $request
+     * @param  Employee  $employee
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
@@ -109,7 +109,7 @@ class EmployeesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param  Employee  $employee
      */
     public function destroy(Employee $employee)
     {

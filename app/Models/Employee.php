@@ -17,6 +17,7 @@ class Employee extends Model
         'phone',
     ];
 
+    protected $perPage = 10;
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;

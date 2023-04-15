@@ -53,7 +53,7 @@ class CompanyService
      */
     public function get()
     {
-        $companies = $this->companyRepository->paginate(10);
+        $companies = $this->companyRepository->paginate();
         return CompanyResource::collection($companies);
     }
 

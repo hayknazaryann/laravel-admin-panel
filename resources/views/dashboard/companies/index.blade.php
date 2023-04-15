@@ -53,14 +53,14 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6">
+                                    <td class="text-center" colspan="6">
                                         Empty data
                                     </td>
                                 </tr>
                             @endforelse
                             </tbody>
                         </table>
-                        {{ $companies->links() }}
+                        {!! $companies->links('dashboard.partials.pagination') !!}
                     </div>
                 </div>
             </div>

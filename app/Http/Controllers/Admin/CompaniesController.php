@@ -54,7 +54,7 @@ class CompaniesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCompanyRequest  $request
+     * @param  StoreCompanyRequest  $request
      */
     public function store(StoreCompanyRequest $request)
     {
@@ -69,7 +69,7 @@ class CompaniesController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param  \App\Models\Company  $company
+     * @param  Company  $company
      */
     public function edit(Company $company)
     {
@@ -82,8 +82,8 @@ class CompaniesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCompanyRequest  $request
-     * @param  \App\Models\Company  $company
+     * @param  UpdateCompanyRequest  $request
+     * @param  Company  $company
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
@@ -99,7 +99,7 @@ class CompaniesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param  Company  $company
      */
     public function destroy(Company $company)
     {

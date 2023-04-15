@@ -15,6 +15,8 @@ class Company extends Model
         'logo'
     ];
 
+    protected $perPage = 10;
+
     public function getLogoFullPathAttribute()
     {
         $filePath = 'storage/uploads/companies/' . $this->id . '/100x100/' . $this->logo;

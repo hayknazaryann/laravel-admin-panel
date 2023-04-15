@@ -30,6 +30,7 @@
 <!-- End Sidebar-->
 
 <main id="main" class="main">
+    @include('dashboard.partials.flash_messages')
     @yield('content')
 </main>
 

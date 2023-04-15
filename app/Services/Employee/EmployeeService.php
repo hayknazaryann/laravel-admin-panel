@@ -31,7 +31,7 @@ class EmployeeService
      */
     public function get()
     {
-        $employees = $this->employeeRepository->paginate(10);
+        $employees = $this->employeeRepository->paginate();
         return EmployeeResource::collection($employees);
     }
 
