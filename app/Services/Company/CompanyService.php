@@ -2,21 +2,9 @@
 
 namespace App\Services\Company;
 
-use App\Http\Resources\CompanyResource;
-use App\Http\Resources\OrderResource;
 use App\Models\Company;
-use App\Models\Order;
 use App\Repositories\Interfaces\CompanyInterface;
-use App\Repositories\Interfaces\EloquentInterface;
-use App\Repositories\Interfaces\OrderInterface;
-use Exception;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CompanyService
 {
@@ -43,8 +31,7 @@ class CompanyService
      */
     public function getAll()
     {
-        $companies = $this->companyRepository->all();
-        return CompanyResource::collection($companies);
+        return $this->companyRepository->all();
     }
 
     /**
@@ -53,16 +40,14 @@ class CompanyService
      */
     public function get()
     {
-        $companies = $this->companyRepository->paginate();
-        return CompanyResource::collection($companies);
+        return $this->companyRepository->paginate();
     }
 
     /**
      * @param array $data
-     * @return CompanyResource
      * @throws \Throwable
      */
-    public function create(array $data): CompanyResource
+    public function create(array $data)
     {
         DB::beginTransaction();
         $company = $this->companyRepository->create($data);
@@ -71,16 +56,15 @@ class CompanyService
             $this->companyRepository->update($company,['logo' => $fileName]);
         }
         DB::commit();
-        return new CompanyResource($company);
+        return $company;
     }
 
     /**
      * @param array $data
      * @param Company $company
-     * @return CompanyResource
      * @throws \Throwable
      */
-    public function update(Company $company, array $data): CompanyResource
+    public function update(Company $company, array $data)
     {
         DB::beginTransaction();
         $this->companyRepository->update($company, $data);
@@ -89,7 +73,7 @@ class CompanyService
             $this->companyRepository->update($company,['logo' => $fileName]);
         }
         DB::commit();
-        return new CompanyResource($company);
+        return $company;
     }
 
     /**

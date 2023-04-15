@@ -37,8 +37,9 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $companies = $this->companyService->get();
-        return view('dashboard.companies.index', compact('companies'));
+        return view('dashboard.companies.index', [
+            'companies' => $this->companyService->get()
+        ]);
     }
 
     /**
@@ -76,7 +77,9 @@ class CompaniesController extends Controller
         if (!$company) {
             return redirect()->route('companies.index');
         }
-        return view('dashboard.companies.edit', compact('company'));
+        return view('dashboard.companies.edit', [
+            'company' => $company
+        ]);
     }
 
     /**

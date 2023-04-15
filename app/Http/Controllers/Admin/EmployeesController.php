@@ -43,8 +43,9 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = $this->employeeService->get();
-        return view('dashboard.employees.index', compact('employees'));
+        return view('dashboard.employees.index', [
+            'employees' => $this->employeeService->get()
+        ]);
     }
 
     /**
@@ -54,8 +55,9 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        $companies = $this->companyService->getAll();
-        return view('dashboard.employees.create', compact('companies'));
+        return view('dashboard.employees.create', [
+            'companies' => $this->companyService->getAll()
+        ]);
     }
 
     /**
@@ -78,15 +80,17 @@ class EmployeesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  Employee  $employee
-     * @return View
      */
     public function edit(Employee $employee)
     {
         if (!$employee) {
             return redirect()->route('employees.index');
         }
-        $companies = $this->companyService->getAll();
-        return view('dashboard.employees.edit', compact('employee', 'companies'));
+
+        return view('dashboard.employees.edit', [
+            'employee' => $employee,
+            'companies' => $this->companyService->getAll()
+        ]);
     }
 
     /**

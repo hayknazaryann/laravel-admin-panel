@@ -2,7 +2,6 @@
 
 namespace App\Services\Employee;
 
-use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeInterface;
 use Illuminate\Support\Facades\DB;
@@ -31,35 +30,32 @@ class EmployeeService
      */
     public function get()
     {
-        $employees = $this->employeeRepository->paginate();
-        return EmployeeResource::collection($employees);
+        return $this->employeeRepository->paginate();
     }
 
     /**
      * @param array $data
-     * @return EmployeeResource
      * @throws \Throwable
      */
-    public function create(array $data): EmployeeResource
+    public function create(array $data)
     {
         DB::beginTransaction();
         $employee = $this->employeeRepository->create($data);
         DB::commit();
-        return new EmployeeResource($employee);
+        return $employee;
     }
 
     /**
      * @param array $data
      * @param Employee $employee
-     * @return EmployeeResource
      * @throws \Throwable
      */
-    public function update(Employee $employee, array $data): EmployeeResource
+    public function update(Employee $employee, array $data)
     {
         DB::beginTransaction();
         $this->employeeRepository->update($employee, $data);
         DB::commit();
-        return new EmployeeResource($employee);
+        return $employee;
     }
 
     /**
