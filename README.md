@@ -7,6 +7,7 @@
 4. npm install
 5. npm run dev
 6. php artisan key:generate
-7. php artisan migrate --seed (Test user credentials email: admin@admin.com, password: admin123)
-8. php artisan optimize:clear
+7. php artisan migrate --seed
+8. php artisan storage:link
+9. php artisan optimize:clear
 
