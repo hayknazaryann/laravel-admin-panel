@@ -9,7 +9,7 @@
             </a>
         </li>
 
-        @foreach(\App\Enums\ResourcesEnum::NAMES as $resource)
+        @foreach(\App\Enums\ResourcesEnum::all() as $resource => $class)
             <li class="nav-item">
                 <a class="nav-link {{ request()->segment(2) == $resource ? '' : 'collapsed' }}" data-bs-target="#{{$resource}}-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>{{ ucfirst($resource) }}</span><i class="bi bi-chevron-down ms-auto"></i>
