@@ -41,12 +41,14 @@
                                     </div>
                                     <div class="mb-3">
                                         <h6 >{{ __('Company logo') }}</h6>
-                                        <input type="file" class="form-control @error('logo') is-invalid @enderror"
-                                               id="logo" name="logo" placeholder="{{__('Company logo')}}"
-                                               value="{{old('logo')}}">
-                                        @error('logo')
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                        @enderror
+                                        <div class="upload-content d-flex">
+                                            <input type="file" class="form-control @error('logo') is-invalid @enderror"
+                                                   id="logo" name="logo" placeholder="{{__('Company logo')}}"
+                                                   value="{{old('logo')}}">
+                                            @error('logo')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
 
 

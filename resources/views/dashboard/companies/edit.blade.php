@@ -13,6 +13,10 @@
 
                             <div class="col-md-12">
                                 <div class="col-md-8 m-auto">
+                                    <div class="logo-preview text-center m-4">
+                                        <img src="{{ $company->logo_full_path }}" alt="">
+                                    </div>
+
                                     <div class="form-floating has-validation mb-3">
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
                                                id="name" name="name" placeholder="{{__('Company name')}}"
@@ -48,12 +52,7 @@
                                         @error('logo')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                         @enderror
-
-                                        <div class="logo-preview">
-                                            <img src="{{ $company->logo_full_path }}" alt="">
-                                        </div>
                                     </div>
-
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success" id="save">{{__('Update')}}</button>

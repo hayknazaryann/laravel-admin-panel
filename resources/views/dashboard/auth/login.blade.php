@@ -17,6 +17,7 @@
     <link href="{{ asset('dashboard/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/css/theme-dark.css') }}" rel="stylesheet">
 </head>
 <body>
 <main>

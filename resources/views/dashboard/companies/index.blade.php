@@ -32,7 +32,11 @@
                                         </td>
                                         <td>{{ $company->name }}</td>
                                         <td>{{ $company->email }}</td>
-                                        <td>{{ $company->website }}</td>
+                                        <td>
+                                            <a target="_blank" href="{{ $company->website }}">
+                                                {{ $company->website }}
+                                            </a>
+                                        </td>
                                         <td>
                                             <a href="{{ route('companies.edit', $company->id) }}"
                                                title="{{ __('Edit') }}"
