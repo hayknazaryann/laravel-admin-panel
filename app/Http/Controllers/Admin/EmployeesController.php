@@ -8,6 +8,7 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Services\Company\CompanyService;
 use App\Services\Employee\EmployeeService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -67,10 +68,13 @@ class EmployeesController extends Controller
      */
     public function store(StoreEmployeeRequest $request)
     {
+        DB::beginTransaction();
         try {
             $this->employeeService->create($request->validated());
+            DB::commit();
             return redirect()->route('employees.index')->with('success', 'Employee created successfully');
         } catch (\Exception $exception) {
+            DB::rollback();
             Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }
@@ -101,10 +105,13 @@ class EmployeesController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
+        DB::beginTransaction();
         try {
             $this->employeeService->update($employee, $request->validated());
+            DB::commit();
             return redirect()->route('employees.index')->with('success', 'Employee updated successfully');
         } catch (\Exception $exception) {
+            DB::rollback();
             Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }
@@ -117,10 +124,13 @@ class EmployeesController extends Controller
      */
     public function destroy(Employee $employee)
     {
+        DB::beginTransaction();
         try {
             $this->employeeService->delete($employee);
+            DB::commit();
             return redirect()->route('employees.index')->with('success', 'Employee deleted successfully');
         } catch (\Exception $exception) {
+            DB::rollback();
             Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }

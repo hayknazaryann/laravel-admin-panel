@@ -49,13 +49,11 @@ class CompanyService
      */
     public function create(array $data)
     {
-        DB::beginTransaction();
         $company = $this->companyRepository->create($data);
         if (isset($data['logo']) && $data['logo']) {
             $fileName = $this->fileService->uploadLogo($company,$data['logo']);
             $this->companyRepository->update($company,['logo' => $fileName]);
         }
-        DB::commit();
         return $company;
     }
 
@@ -66,13 +64,11 @@ class CompanyService
      */
     public function update(Company $company, array $data)
     {
-        DB::beginTransaction();
         $this->companyRepository->update($company, $data);
         if (isset($data['logo']) && $data['logo']) {
             $fileName = $this->fileService->uploadLogo($company, $data['logo']);
             $this->companyRepository->update($company,['logo' => $fileName]);
         }
-        DB::commit();
         return $company;
     }
 
@@ -82,9 +78,7 @@ class CompanyService
      */
     public function delete(Company $company)
     {
-        DB::beginTransaction();
         $this->companyRepository->delete($company);
-        DB::commit();
     }
 
 

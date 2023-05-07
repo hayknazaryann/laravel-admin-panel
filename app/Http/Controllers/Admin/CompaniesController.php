@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Services\Company\CompanyService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use PHPUnit\Exception;
@@ -59,10 +60,13 @@ class CompaniesController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
+        DB::beginTransaction();
         try {
             $this->companyService->create($request->validated());
+            DB::commit();
             return redirect()->route('companies.index')->with('success', 'Company created successfully');
         } catch (Exception $exception) {
+            DB::rollback();
             Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }
@@ -90,10 +94,13 @@ class CompaniesController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
+        DB::beginTransaction();
         try {
             $this->companyService->update($company, $request->validated());
+            DB::commit();
             return redirect()->route('companies.index')->with('success', 'Company updated successfully');
         } catch (Exception $exception) {
+            DB::rollback();
             Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }
@@ -106,10 +113,13 @@ class CompaniesController extends Controller
      */
     public function destroy(Company $company)
     {
+        DB::beginTransaction();
         try {
             $this->companyService->delete($company);
+            DB::commit();
             return redirect()->route('companies.index')->with('success', 'Company deleted successfully');
         } catch (Exception $exception) {
+            DB::rollback();
             Log::error($exception->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
         }

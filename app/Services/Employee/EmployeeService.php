@@ -39,9 +39,7 @@ class EmployeeService
      */
     public function create(array $data)
     {
-        DB::beginTransaction();
         $employee = $this->employeeRepository->create($data);
-        DB::commit();
         return $employee;
     }
 
@@ -52,9 +50,7 @@ class EmployeeService
      */
     public function update(Employee $employee, array $data)
     {
-        DB::beginTransaction();
         $this->employeeRepository->update($employee, $data);
-        DB::commit();
         return $employee;
     }
 
@@ -64,9 +60,7 @@ class EmployeeService
      */
     public function delete(Employee $employee)
     {
-        DB::beginTransaction();
         $this->employeeRepository->delete($employee);
-        DB::commit();
     }
 
 
